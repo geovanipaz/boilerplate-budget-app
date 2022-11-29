@@ -4,6 +4,20 @@ class Category:
         self.nome = nome
         self.ledge = []
             
+    def __str__(self):
+        str_nome = '{:*^30}'.format(self.nome)
+        str_ledge = ''
+        str_total = 0
+        for i in self.ledge:
+            formata = '{:7.2f}'.format(i['amount'])
+            str_amount = str(formata)
+            qtd = 30-len(i['description'])
+            str_amount = str_amount.rjust(qtd,' ')
+            #str_desc = '{:''>espaços}'.format(i['description'])
+            str_ledge += f'{i["description"]}'+str_amount+'\n'
+            str_total += i['amount']
+        str_ledge += f'Total: {str_total}'  
+        return f'{str_nome}\n'+str_ledge
 
     def deposit(self, valor, descricao=''):
         self.ledge.append({'amount':valor,'description':descricao})
@@ -40,7 +54,7 @@ print(c1.nome)
 print(c2.nome)
 c1.deposit(50,'compra de peixe')
 c1.deposit(50,'compra de carne')
-c1.deposit(30,'compra de arroz')
+c1.deposit(30,'compra de sal')
 c1.withdraw(20,'retirada')
 
 c2.deposit(10, 'cocacola')
@@ -57,3 +71,5 @@ print(c1.ledge)
 print(c2.ledge)
 print(c1.get_balance())
 print(c2.get_balance())
+
+print(c1)
